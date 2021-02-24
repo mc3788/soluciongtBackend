@@ -10,6 +10,10 @@ class CotizacionEncabezadoModel extends Model
 
     protected $table = 'cotizacionEncabezado';
     protected $fillable = ['idCliente','idSerie','idRazonSocial','idUsuario','fecha','numero','tipo','numeroNOG','evento','pedido','codigoIGSS','codigoPPR','oferta','updated_by'];
+//    protected $dateFormat = 'U';
+    protected $dates = [
+        'fecha'
+    ];
 
     public function cliente() {
         require_once 'api/model/ClienteModel.php';
@@ -21,9 +25,9 @@ class CotizacionEncabezadoModel extends Model
         return $this->hasOne( 'SerieModel', 'id', 'idSerie' )->select(['id','serie','status']);
     }
 
-    public function razonSocial() {
+    public function razonsocial() {
         require_once 'api/model/RazonSocialModel.php';
-        return $this->hasOne( 'RazonSocialModel', 'id', 'idRazonSocial' )->select(['id','nombre']);
+        return $this->hasOne( 'RazonSocialModel', 'id', 'idRazonSocial' )->select(['id','nombre','direccion']);
     }
 
     public function usuario() {
