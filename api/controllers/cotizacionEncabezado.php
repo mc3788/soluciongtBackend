@@ -15,7 +15,7 @@ class cotizacionEncabezado extends Controller
             {
                 $data = $this->getData($modelName, $id, null);
                 if ( isset( $data ) ){
-                    $data->load(['cliente','serie','razonsocial','usuario','detalle']);
+                    $data->load(['cliente','serie','razonsocial','usuario','detalle','bodega']);
                 }
                 ResponseAdministrator::responseData( $data );
             } catch( Exception $exception ){

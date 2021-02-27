@@ -9,7 +9,7 @@ class CotizacionEncabezadoModel extends Model
     use SoftDeletes;
 
     protected $table = 'cotizacionEncabezado';
-    protected $fillable = ['idCliente','idSerie','idRazonSocial','idUsuario','fecha','numero','tipo','numeroNOG','evento','pedido','codigoIGSS','codigoPPR','oferta','updated_by'];
+    protected $fillable = ['idCliente','idSerie','idRazonSocial','idUsuario', 'idBodegaEntrega','fecha','numero','tipo','numeroNOG','evento','pedido','codigoIGSS','codigoPPR','oferta','updated_by'];
 //    protected $dateFormat = 'U';
     protected $dates = [
         'fecha'
@@ -17,7 +17,7 @@ class CotizacionEncabezadoModel extends Model
 
     public function cliente() {
         require_once 'api/model/ClienteModel.php';
-        return $this->hasOne( 'ClienteModel', 'id', 'idCliente' )->select(['id','nit','nombre']);
+        return $this->hasOne( 'ClienteModel', 'id', 'idCliente' )->select(['id','nit','nombre', 'departamento']);
     }
 
     public function serie() {
@@ -25,9 +25,14 @@ class CotizacionEncabezadoModel extends Model
         return $this->hasOne( 'SerieModel', 'id', 'idSerie' )->select(['id','serie','status']);
     }
 
+    public function bodega() {
+        require_once 'api/model/BodegaModel.php';
+        return $this->hasOne( 'BodegaModel', 'id', 'idBodegaEntrega' )->select(['id','descripcion','estado']);
+    }
+
     public function razonsocial() {
         require_once 'api/model/RazonSocialModel.php';
-        return $this->hasOne( 'RazonSocialModel', 'id', 'idRazonSocial' )->select(['id','nombre','direccion']);
+        return $this->hasOne( 'RazonSocialModel', 'id', 'idRazonSocial' )->select(['id','nombre','direccion', 'nombreComercial','representanteLegal', 'nit', 'cuentaBancaria','regimenImpuesto','telefono','correoElectronico','representanteFirma','numeroCelular']);
     }
 
     public function usuario() {

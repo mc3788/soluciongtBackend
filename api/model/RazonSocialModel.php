@@ -9,6 +9,6 @@ class RazonSocialModel extends Model
     use SoftDeletes;
 
     protected $table = 'razonSocial';
-    protected $fillable = ['nombre','direccion','nombreComercial','representanteLegal', 'nit', 'cuentaBancaria','regimenImpuesto','telefono','correoElectronico','updated_by'];
+    protected $fillable = ['nombre','direccion','nombreComercial','representanteLegal', 'nit', 'cuentaBancaria','regimenImpuesto','telefono','correoElectronico','representanteFirma','razonSocial','updated_by'];
 
 }
