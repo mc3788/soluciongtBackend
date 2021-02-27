@@ -23,7 +23,36 @@ class cotizacionEncabezado extends Controller
             }
         } elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
         {
-            $this->post($modelName);
+
+            try
+            {
+                $model = $this->model( $modelName );
+
+                $inputJSON = file_get_contents('php://input');
+                $input = json_decode($inputJSON, TRUE);
+
+                $correlativoModel = $this->model('CorrelativoModel');
+
+                $data = $correlativoModel::where('idSerie', '=', $input['idSerie'])->first();
+
+                if ( !isset ( $data )  ){
+                    $data['correlativo'] = 1;
+                    $data['idSerie']= $input['idSerie'];
+                    $data = $correlativoModel::create( $data );
+                } else {
+                    $data['correlativo'] = $data['correlativo'] + 1;
+                }
+
+                $input['numero'] = $data['correlativo'];
+                $record = $model::create( $input );
+
+                $data->save();
+
+                ResponseAdministrator::responsePost( $record );
+            } catch( Exception $exception ){
+                ResponseAdministrator::response();
+            }
+//            $this->post($modelName);
         } elseif ($_SERVER['REQUEST_METHOD'] === 'PUT' )
         {
             $this->put($modelName, $id);
@@ -36,6 +65,23 @@ class cotizacionEncabezado extends Controller
         } else {
             ResponseAdministrator::responseBadRequest();
         }
+    }
+
+    public function testSerie( $id = '' ) {
+
+        $inputJSON = file_get_contents('php://input');
+        $input = json_decode($inputJSON, TRUE);
+        $serieModel = $this->model('CorrelativoModel');
+        $data = $serieModel::where('idSerie', '=', $input['idSerie'])->firstOrFail();
+
+        $data['correlativo'] = $data['correlativo'] + 1;
+
+        $data->save();
+
+        ResponseAdministrator::responseData( $data );
+
+
+
     }
 
 }

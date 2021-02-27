@@ -9,10 +9,10 @@ $manager->addConnection([
 	'driver' => 'mysql',
 	'host'  => '127.0.0.1',
 	'username'  => 'root',
-	'password'  => 'root',
+	'password'  => 'hernandez',
 	'database'  => 'soluciongt',
 	'charset'   => 'utf8',
-	'port' => '8889',
+	'port' => '3306',
 	'collation' => 'utf8_unicode_ci',
 	'prefix'    => ''
 ]);

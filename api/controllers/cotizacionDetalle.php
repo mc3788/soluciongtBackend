@@ -38,5 +38,24 @@ class cotizacionDetalle extends Controller
         }
     }
 
+    public function byHeaderId( $id = '' ){
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            try {
+                $modelName = 'CotizacionDetalleModel';
+                $model = $this->model($modelName);
+
+                $data = $model::where('idCotizacion', '=', $id)->get();
+                if ( isset( $data ) ){
+                    $data->load('producto');
+                }
+                ResponseAdministrator::responseData($data);
+            }catch( Exception $exception ){
+                ResponseAdministrator::response();
+            }
+        } else {
+            ResponseAdministrator::responseBadRequest();
+        }
+    }
+
 
 }

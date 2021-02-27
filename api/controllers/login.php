@@ -33,6 +33,7 @@ class login extends Controller {
 				}
 
 				$token = [
+                    'id' => $us->id,
 					'token' => Auth::SingIn( [ 'usuario' => $us->usuario ] )
 				];
 
