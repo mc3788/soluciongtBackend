@@ -1,6 +1,8 @@
 Options -MultiViews
 RewriteEngine On
 
+Header set X-Robots-Tag "noindex, nofollow, noarchive, nosnippet"
+
 RewriteBase /
 
 RewriteCond %{REQUEST_FILENAME} !-d
