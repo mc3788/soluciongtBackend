@@ -74,6 +74,10 @@ class Api{
 
 		$token = $head['X-Auth-Token'];
 
+		if ( !isset($token) ){
+            $token = $head['x-auth-token'];
+        }
+
 		if ( isset($token) ){
 			require_once "api/core/Auth.php";
 			try
